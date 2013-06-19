@@ -185,7 +185,7 @@ and extendable code.
 I would like to go a bit more into the scalability claims I have made about Netty and not
 yet argued about.
 
-A part of the mentioned scalability of Netty is a direct consequence of it's asynchronous
+A part of the mentioned scalability of Netty is a direct consequence of its asynchronous
 design: It does not require a thread per request and is therefore able to handle more
 concurrent connections with less available memory compared to a thread-per-request approach.
 With less threads running on your server the operation

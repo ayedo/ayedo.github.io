@@ -19,7 +19,7 @@
           <div class="site">
             <div class="header">
               <h1 class="title"><a href="/">Ayedo</a></h1>
-              <a class="extra" href="/">home</a>
+               <a class="extra" href="/about">about</a>
             </div>
 
                 <h2>What is Netty?</h2>
@@ -98,7 +98,7 @@
 
 <p>I would like to go a bit more into the scalability claims I have made about Netty and not yet argued about.</p>
 
-<p>A part of the mentioned scalability of Netty is a direct consequence of it&#8217;s asynchronous design: It does not require a thread per request and is therefore able to handle more concurrent connections with less available memory compared to a thread-per-request approach. With less threads running on your server the operation system will be less busy doing context switches and other thread related overhead. This can lead to a performance increase. In the case of Netty this seems to be true as it has found its way into businesses such as Twitter and Facebook which handle impressive amounts of concurrent requests.</p>
+<p>A part of the mentioned scalability of Netty is a direct consequence of its asynchronous design: It does not require a thread per request and is therefore able to handle more concurrent connections with less available memory compared to a thread-per-request approach. With less threads running on your server the operation system will be less busy doing context switches and other thread related overhead. This can lead to a performance increase. In the case of Netty this seems to be true as it has found its way into businesses such as Twitter and Facebook which handle impressive amounts of concurrent requests.</p>
 
 <p>The rest of the scalability comes from the great expertise of the Netty developers in Java and the specific performance bottlenecks in the native I/O implementations. If you are interested in high performance data structures optimized for network applications or if you would like to know more about how Netty threading internally I recommend the book &#8220;Netty in Action&#8221;. It is written by one of the main contributors to Netty: Norman Maurer. At time of writing of this post it the book is not yet finished but it already gives the most complete overview on Netty in my opinion.</p>
 
