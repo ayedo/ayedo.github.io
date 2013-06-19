@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>What is Netty?</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+          <div class="site">
+            <div class="header">
+              <h1 class="title"><a href="/">Ayedo</a></h1>
+              <a class="extra" href="/">home</a>
+            </div>
+
+                <h2>What is Netty?</h2>
+<p class="meta">19 Jun 2013</p>
+
+<div class="post">
+<p>Have you ever thought about creating your very own web server specific to your needs in hope of achieving higher performance and throughput of your applications? Do you sometimes dream of having more control over your networking code without using the bumpy experience offered by bare metal networking primitives?</p>
+
+<p>Then let me introduce to you to Netty!</p>
+
+<p>Netty is a networking library for Java: It was designed to support developers who wish to create applications such as web servers, chat servers, message brokers or whatever networking application you might come up with yourself.</p>
+
+<p>There are mainly two things Netty could do for you:</p>
+
+<ul>
+<li>
+<p>You&#8217;ll probably find it easier to use and maintain than the standard Java ways of doing lower level networking I/O.</p>
+</li>
+
+<li>
+<p>Your application will be built on top of an architectural design with great potential for performance and scalability. In short: Netty will help you with writing and maintaining asynchronous code.</p>
+</li>
+</ul>
+
+<p>You might wonder what asynchronous means here? Since it the crucial aspect behind Netty&#8217;s architecture I would like to try and explain it to you first.</p>
+
+<p>The word &#8220;asynchronous&#8221; sounds a bit scary at first but the concept is actually likely to be known to most people from their daily life: It&#8217;s all about waiting.</p>
+
+<p>Imagine for example that you are cooking spaghetti and you would also like to have tomato sauce with it. The first thing you do is set up the water and then you watch it for ten minutes until it boils. As soon as you see the water splashing you put spaghetti in and start chopping onions and tomatoes for your sauce.</p>
+
+<p>Wait, that was weird. Why would you watch the water until it boils and not just chop your vegetables in the meantime? We only want to have to wait for something to happen when there is absolutely nothing else to do and even then there is Reddit!</p>
+
+<p>Have you ever had the feeling that a program you have just created is watching the water until it boils and is refusing to do anything else in the meantime? I clearly remember my first networking client-server application written for a school assignment. I was using the standard Java 1.4 I/O libraries and it was a lot of&#8230;. fun. It included something along the lines of:</p>
+<br /><div class='highlight'><pre><code class='java'><span class='kd'>public</span> <span class='kt'>void</span> <span class='nf'>serve</span><span class='o'>(</span><span class='kt'>int</span> <span class='n'>port</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='c1'>// Create a socket for incoming client requests on the provided port</span>
+    <span class='kd'>final</span> <span class='n'>ServerSocket</span> <span class='n'>socket</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>ServerSocket</span><span class='o'>(</span><span class='n'>port</span><span class='o'>);</span>
+    <span class='k'>while</span> <span class='o'>(</span><span class='kc'>true</span><span class='o'>)</span> <span class='o'>{</span>
+    <span class='c1'>// Watch the server socket for new incoming connections.</span>
+    <span class='kd'>final</span> <span class='n'>Socket</span> <span class='n'>clientSocket</span> <span class='o'>=</span> <span class='n'>socket</span><span class='o'>.</span><span class='na'>accept</span><span class='o'>();</span>
+    <span class='c1'>// &lt;- It only continues here when a new connection has been accepted!</span>
+    <span class='o'>...</span>
+    <span class='c1'>// Since the thread is busy now, no new connections can be accepted</span>
+ <span class='o'>}</span>
+</code></pre></div><br />
+<p>In order to allow for new clients to connect my little program was watching out for a new connection and would not be able to do anything else in the meantime. Once it got busy with handling a request it would not accept any new connections. New clients would thus basically told to&#8230; find themselves a different server!</p>
+<br /><br /><center><img src='/img/blocking.png' width='70%' /></center><br /><br />
+<p>Well, well you might say: There was a lesson for you to learn in that course. Here, rookie engineer, you fix that problem by creating a thread for every request:</p>
+<br /><br /><center><img src='/img/blocking_threads.png' width='72%' /></center><br /><br />
+<p>And suddenly it works! Our server now knows how to accept and handle requests &#8220;in the same time&#8221;.</p>
+
+<p>There is a twist to that solution though. If we go back to our kitchen example, that would mean that I can always just call up a friend to chop my onions while I watch the water until it boils. If we also want to have the tomatoes ready on time for the sauce, we just need to get more friends. And since everybody knows you have crazy ways of cooking, they willingly comply. Let&#8217;s not forget: We now have to we make sure that all our friends are on time with their part of the cooking. We should further try to not use stove at the same time! We&#8217;ll need to come up with some rules to avoid stepping on each others feet as well&#8230; cooking spaghetti just got really complicated!</p>
+
+<p>Making a kitchen work this way is hard and it turns out that many people find multi-threaded programming complicated too. Threads are also quiet expensive in terms of memory consumption and if you want to serve a lot of requests you might see your friends faces pushed against the kitchen window gasping for air! Don&#8217;t get me wrong: The concept of using a thread per request is valid and has some useful properties. but wouldn&#8217;t it be nice if we could do I/O using a single or a small number of threads? How could we do I/O with fewer threads and only wait when there are no events from any of our input or output streams to react to?</p>
+
+<p>Here is an idea:</p>
+
+<p>Instead of being busy watching what one stream is doing while ignoring events on any other streams, we could watch out for events on all of our streams combined! With such a mechanism, a single thread could check up on all streams at once. It would only have to wait when no stream was offering events for it to react to. This means that somehow we will have to provide a single thread with the buffered events from all streams one by one:</p>
+<br /><br /><center><img src='/img/selector.png' width='72%' /></center><br /><br />
+<p>When the developers at Sun decided to complement their blocking or synchronous I/O API (the one mentioned in the school assignment), they ultimately used this idea as the basis for their solution: The Java New IO API which is often abbreviated to &#8220;NIO&#8221;.</p>
+
+<p>There are other ways of doing asynchronous I/O for which I do not have the time to go into details here but I would like to mention that Java NIO later got an extension called &#8220;NIO2&#8221; which allows you do have asynchrony using a different concept than the &#8220;selector&#8221; approach mentioned above (it is based on <a href='http://en.wikipedia.org/wiki/Callback_%28computer_programming%29'>callbacks</a>).</p>
+
+<p>What does Netty have to do with all of this?</p>
+
+<p>For starters, it provides you with a unified asynchronous API abstracting over the native Java I/O frameworks mentioned before.</p>
+
+<p>Having a unified asynchronous API means that you can write your application against the Netty API and tell it which underlying native API it should use for sending the bytes over the network. You thus don&#8217;t have to worry about many of the lower-level details and problems that come with handling Java blocking IO, NIO or NIO2 code directly. The interested reader might have noticed that I have also listed the blocking Java IO as a possible means of transportation. This is correct! The Netty developers pull some tricks that make it possible for you to introduce asynchrony into legacy code by running on the old blocking I/O API.</p>
+
+<p>Another problem, which is approached by Netty, is the complexity of asynchronous code. Let&#8217;s go back to our &#8220;selector&#8221; solution for achieving asynchronous I/O: The Selector provides your single thread with event occurring on a group of streams. This means that when your thread asks the selector for events you will get one out of a whole possible mix of events (, such as &#8220;stream ready for writing, reading&#8221; etc.)and you&#8217;ll have to come up with some structured way of figuring out how to react to each of them.</p>
+
+<p>One way of attaching logic to specific events is to use a large switch statement with a &#8220;case&#8221; for each of the differing events you&#8217;d expect from your streams. Typically, this approach leads to long methods with deep nesting. It is considered by many developers to contain typical traits of unmaintainable code. The following idea provides an alternative solution:</p>
+<br /><br /><center><img src='/img/reactor.png' width='72%' /></center><br /><br />
+<p>We could implement a mechanism which takes the events from the selector and distributes or &#8220;dispatches&#8221; them to interested methods. If you would like react to an event you can thus subscribe a method to it. Once the event occurs the dispatcher then calls the subscribed methods (often called &#8220;handlers&#8221;) one by one and one after another. In the figure it can be seen that a &#8220;blue&#8221; event has occurred and the dispatcher now calls the subscribed blue &#8220;event handlers&#8221; sequentially. This pattern was named the &#8220;Reactor&#8221; by it&#8217;s discoverers (<a href='http://www.cs.wustl.edu/~schmidt/PDF/reactor-siemens.pdf'>link</a>) but it&#8217;s also commonly known as an &#8220;event dispatcher&#8221; or &#8220;the event loop&#8221;.</p>
+
+<p>Not only does Netty implement this reactor pattern for you but it further extends it with the concepts of pipelines: Instead of having a single handler attached to an event it allows you to attach a whole sequence of handlers which can pass their output as input to the next handler. How is this useful? Usually, networking applications work in layers: You have raw byte streams which represent HTTP which might me used to transport compressed and encrypted data and so on. With Netty you can now chain a HTTP decoder which passes its output to a decompression handler which passes its output to an decrypt handler and so on&#8230; In short: Event handlers in Netty are composable and composition is at the very core of most maintainable and extendable code.</p>
+
+<p>I would like to go a bit more into the scalability claims I have made about Netty and not yet argued about.</p>
+
+<p>A part of the mentioned scalability of Netty is a direct consequence of it&#8217;s asynchronous design: It does not require a thread per request and is therefore able to handle more concurrent connections with less available memory compared to a thread-per-request approach. With less threads running on your server the operation system will be less busy doing context switches and other thread related overhead. This can lead to a performance increase. In the case of Netty this seems to be true as it has found its way into businesses such as Twitter and Facebook which handle impressive amounts of concurrent requests.</p>
+
+<p>The rest of the scalability comes from the great expertise of the Netty developers in Java and the specific performance bottlenecks in the native I/O implementations. If you are interested in high performance data structures optimized for network applications or if you would like to know more about how Netty threading internally I recommend the book &#8220;Netty in Action&#8221;. It is written by one of the main contributors to Netty: Norman Maurer. At time of writing of this post it the book is not yet finished but it already gives the most complete overview on Netty in my opinion.</p>
+
+<p>I hope this post could give you some insights on Netty and motivate you to write that high-performance scalable networking you always had in mind! Happy hacking :)</p>
+</div>
+
+
+            <div class="footer">
+
+            </div>
+          </div>
+        </div> <!-- /container -->
+
+    </body>
+</html>
