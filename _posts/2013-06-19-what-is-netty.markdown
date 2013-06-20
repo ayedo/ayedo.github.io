@@ -10,7 +10,7 @@ needs in hope of achieving higher performance and throughput of your application
 Do you sometimes dream of having more control over your networking code without
 using the bumpy experience offered by bare metal networking primitives?
 
-Then let me introduce to you to Netty!
+Then let me introduce to you to <a href="http://netty.io/">Netty</a>!
 
 Netty is a networking library for Java: It was designed to support developers who
 wish to create applications such as web servers, chat servers, message brokers
@@ -101,7 +101,7 @@ multi-threaded programming complicated too. Threads are also quiet expensive in 
 of memory consumption and if you want to serve a lot of requests you might see your friends
 faces pushed against the kitchen window gasping for air! Don't get me wrong: The concept of
 using a thread per request is valid and has some useful properties.
-but wouldn't it be nice if we could do I/O using a single or a small number of threads?
+But wouldn't it be nice if we could do I/O using a single or a small number of threads?
 How could we do I/O with fewer threads and only wait when there are no events from any
 of our input or output streams to react to?
 
@@ -146,7 +146,7 @@ Another problem, which is approached by Netty, is the complexity of asynchronous
 code. Let's go back to our "selector" solution for achieving asynchronous I/O:
 The Selector provides your single thread with event occurring on a group of streams.
 This means that when your thread asks the selector for events you will get one out
-of a whole possible mix of events (, such as "stream ready for writing, reading" etc.)and you'll have to come up with some structured way of figuring out how to react
+of a whole possible mix of events (, such as "stream ready for writing, reading" etc...) and you'll have to come up with some structured way of figuring out how to react
 to each of them.
 
 One way of attaching logic to specific events is to use a large switch statement
@@ -197,9 +197,9 @@ impressive amounts of concurrent requests.
 The rest of the scalability comes from the great expertise of the Netty developers in
 Java and the specific performance bottlenecks in the native I/O
 implementations. If you are interested in high performance data structures optimized
-for network applications or if you would like to know more about how Netty threading
+for network applications or if you would like to know more about how Netty handles threading
 internally I recommend the book "Netty in Action". It is written by one of the main
-contributors to Netty: Norman Maurer. At time of writing of this post it the book is not yet
+contributors of Netty: Norman Maurer. At time of writing of this post the book is not yet
 finished but it already gives the most complete overview on Netty in my opinion.
 
 I hope this post could give you some insights on Netty and motivate you to write that
