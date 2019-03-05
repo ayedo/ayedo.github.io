@@ -11,9 +11,7 @@ There are counries like Switzerland, Canada, Belgium which all have mutliple lan
 
 Even if you decide to have an educated guess (say by using browser provided information), always, always allow the user to change their language.
 
-I stumpled upon this problem when I tried to integrate with Stripe's standard account subsription form for Switzerland. You can interact with it here:
-
-https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_32D88BD1qLklliziD7gYQvctJIhWBSQ7&scope=read_write
+I stumpled upon this problem when I tried to integrate with Stripe's standard account subsription form for Switzerland. <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_32D88BD1qLklliziD7gYQvctJIhWBSQ7&scope=read_write">Click here to interact with it</a>.
 
 Try changeing the country to Germany. Now everything is in German. Now change it to Switzerland, and it's English. Why isn't it Swiss? Well, we have four official  languages here, and none of them is called Swiss. There is no way I could find to change, or configure the language.
 
