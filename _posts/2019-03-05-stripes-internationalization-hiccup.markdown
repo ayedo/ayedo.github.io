@@ -7,7 +7,7 @@ categories: internationalization
 
 This is just a reminder to all programmers who are developing applications that are supposed to be working internationally: the language the user would like to interact with your site has nothing to do with their country of residence.
 
-There are counries like Switzerland, Canada, Belgium which all have mutliple languages. There are expats who live in other countries too. Don't try to be too fancy here, just let people choose.
+There are counries like Switzerland, Canada, Belgium which have mutliple official languages. There are expats who live in other countries too. Don't try to be too fancy here, just let people choose.
 
 Even if you decide to have an educated guess (say by using browser provided information), always, always allow the user to change their language.
 
