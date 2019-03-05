@@ -15,6 +15,6 @@ I stumpled upon this problem when I tried to integrate with Stripe's standard ac
 
 Try changeing the country to Germany. Now everything is in German. Now change it to Switzerland, and it's English. Why isn't it Swiss? Well, we have four official  languages here, and none of them is called Swiss. There is no way I could find to change, or configure the language.
 
-I consulted Stripe on multiple channels about the issue, and the response I got was: there is no way to configure the language. The country defines the language. In the case of Switzerland that means: English.
+I consulted Stripe on multiple channels about this, and the response I got was: there is no way to configure the language. The country defines the language. In the case of Switzerland that means: English.
 
 So please, my mono-lingual friends, don't make it hard for us multi-lingual countries. Be nice and let us pick our favourite language!
