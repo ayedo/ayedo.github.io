@@ -45,7 +45,7 @@ What I like about this is:
 - if we add a language the code won't compile until we define the corresponding function for all instances of Translatable
 - the translations are next to each other in a single file, not spread across multiple files which require context switches to compare. Mistakes are more obvious that way.
 
-Using these Translateable objects is not yet ergonomic: when we want to translate we have to invoke the correct function depending on the desired language. 
+Using these Translatable objects is not yet ergonomic: when we want to translate we have to invoke the correct function depending on the desired language. 
 
 Further, whatever language it might be, one usually wants to have all translations for the same one. It's helpful to create an object to store a language and invoke the corresponding language function for you:
 
