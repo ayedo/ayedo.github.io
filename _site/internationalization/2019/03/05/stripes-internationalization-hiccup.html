@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Stripe's internationalization hiccup</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+          <div class="site">
+            <div class="header">
+              <h1 class="title"><a href="/">Alon in the Dark</a></h1>
+               <a class="extra" href="/about.html">about</a>
+            </div>
+
+                <h2>Stripe's internationalization hiccup</h2>
+<p class="meta">05 Mar 2019</p>
+
+<div class="post">
+<p>This is just a reminder to all programmers who are developing applications that are supposed to be working internationally: the language the user would like to interact with your site has nothing to do with their country of residence.</p>
+
+<p>There are countries, which have multiple official languages. There are expats who live in other countries too. Don’t try to be too fancy here, just let people choose.</p>
+
+<p>Even if you decide to have an educated guess (say by using browser provided information), always, always allow the user to change their language.</p>
+
+<p>I stumbled upon this problem when I tried to integrate with Stripe’s standard account subscription form for Switzerland. <a href="https://connect.stripe.com/oauth/authorize?response_type=code&amp;client_id=ca_32D88BD1qLklliziD7gYQvctJIhWBSQ7&amp;scope=read_write">Click here to interact with it</a>.</p>
+
+<p>Try changing the country to Germany. Now everything is in German. Now change it to Switzerland, and it’s English. Why isn’t it Swiss? Well, we have four official languages here, and none of them is called Swiss. There is no way I could find to change, or configure the language.</p>
+
+<p>I consulted Stripe on multiple channels about this, and the response I got was: there is no way to configure the language. The country defines the language. In the case of Switzerland that means: English.</p>
+
+<p>So please, my monolingual friends don’t make it hard for us multi-lingual countries. Be nice and let us pick our favorite language!</p>
+
+</div>
+
+
+            <div class="footer">
+
+            </div>
+          </div>
+        </div> <!-- /container -->
+
+    </body>
+</html>
