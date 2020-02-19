@@ -97,6 +97,6 @@ What are the disadvantages of the approach? The ones I found:
 
 There is one more feature of Kotlin that plays nicely into this: Kotlin also compiles to Javascript. This means that the translations defined in this way can be shared across the front-, and backend code.
 
-What do you think? I'm looking forward to your input. Discussion on reddit / hackernews.
+What do you think? I'm looking forward to your input. Discussion on <a href="https://www.reddit.com/r/programming/comments/f6hewi/typesafe_i18n_made_easy_with_kotlin/">reddit</a> and <a  href="https://news.ycombinator.com/item?id=22370096">hackernews</a>.
 
 Working example code can be found on [GitHub](https://github.com/ayedo/typesafei18n)

@@ -1,34 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Typesafe i18n made easy (with Kotlin)</title>
-        <meta name="viewport" content="width=device-width">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Typesafe i18n made easy (with Kotlin)</title>
+    <meta name="viewport" content="width=device-width" />
 
-        <!-- syntax highlighting CSS -->
-        <link rel="stylesheet" href="/css/syntax.css">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css" />
 
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/main.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css" />
 
-    </head>
-    <body>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-156680381-2"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-        <div class="container">
-          <div class="site">
-            <div class="header">
-              <h1 class="title"><a href="/">Alon in the Dark</a></h1>
-               <a class="extra" href="/about.html">about</a>
-            </div>
+      gtag("config", "UA-156680381-2");
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="site">
+        <div class="header">
+          <h1 class="title"><a href="/">Alon in the Dark</a></h1>
+          <a class="extra" href="/about.html">about</a>
+        </div>
 
-                <h2>Typesafe i18n made easy (with Kotlin)</h2>
+        <h2>Typesafe i18n made easy (with Kotlin)</h2>
 <p class="meta">15 Feb 2020</p>
 
 <div class="post">
 <p>A missing translation, while technically a benign problem, is also a usually visible, and embarrassing one. You do not want your customers to believe that the sloppiness of forgetting a translation is indicative of your product’s general quality.</p>
 
-<p>I live and work in Switzerland, a country with no less than four official languages. Here a large portion of public projects will involve internationaliation in some form. Even in this context, in my personal experience, it regularly happens that translations are missing on live production systems. I was wondering if maybe we are not using the right tool for the job?</p>
+<p>I live and work in Switzerland, a country with no less than four official languages. Here a large portion of public projects will involve internationalization in some form. Even in this context, in my personal experience, it regularly happens that translations are missing on live production systems. I was wondering if maybe we are not using the right tool for the job?</p>
 
 <p>I have been programming in Kotlin a lot lately, and I’ve discovered that its conciseness may allow for a safer internationalization experience. One where the compiler supports the effort.</p>
 
@@ -41,7 +54,7 @@
 
 <p>Nothing fancy yet: a Translatable has a function to return a String for each supported language.</p>
 
-<p>Now two features of Kotlin come into to play:</p>
+<p>Now two features of Kotlin comes into to play:</p>
 
 <ol>
   <li>built-in language support for singletons</li>
@@ -66,7 +79,7 @@
   <li>the translations are next to each other in a single file, not spread across multiple files which require context switches to compare. Mistakes are more obvious that way.</li>
 </ul>
 
-<p>Using these Translateable objects is not yet ergonomic: when we want to translate we have to invoke the correct function depending on the desired language.</p>
+<p>Using these Translatable objects is not yet ergonomic: when we want to translate we have to invoke the correct function depending on the desired language.</p>
 
 <p>Further, whatever language it might be, one usually wants to have all translations for the same one. It’s helpful to create an object to store a language and invoke the corresponding language function for you:</p>
 
@@ -114,18 +127,16 @@ ${translator(ClickHereToRestorePassword)}
 
 <p>There is one more feature of Kotlin that plays nicely into this: Kotlin also compiles to Javascript. This means that the translations defined in this way can be shared across the front-, and backend code.</p>
 
-<p>What do you think? I’m looking forward to your input. Discussion on reddit / hackernews.</p>
+<p>What do you think? I’m looking forward to your input. Discussion on <a href="https://www.reddit.com/r/programming/comments/f6hewi/typesafe_i18n_made_easy_with_kotlin/">reddit</a> and <a href="https://news.ycombinator.com/item?id=22370096">hackernews</a>.</p>
 
 <p>Working example code can be found on <a href="https://github.com/ayedo/typesafei18n">GitHub</a></p>
 
 </div>
 
 
-            <div class="footer">
-
-            </div>
-          </div>
-        </div> <!-- /container -->
-
-    </body>
+        <div class="footer"></div>
+      </div>
+    </div>
+    <!-- /container -->
+  </body>
 </html>
