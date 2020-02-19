@@ -7,7 +7,7 @@ categories: internationalization
 
 A missing translation, while technically a benign problem, is also a usually visible, and embarrassing one. You do not want your customers to believe that the sloppiness of forgetting a translation is indicative of your product's general quality.
 
-I live and work in Switzerland, a country with no less than four official languages. Here a large portion of public projects will involve internationaliation in some form. Even in this context, in my personal experience, it regularly happens that translations are missing on live production systems. I was wondering if maybe we are not using the right tool for the job?
+I live and work in Switzerland, a country with no less than four official languages. Here a large portion of public projects will involve internationalization in some form. Even in this context, in my personal experience, it regularly happens that translations are missing on live production systems. I was wondering if maybe we are not using the right tool for the job?
 
 I have been programming in Kotlin a lot lately, and I've discovered that its conciseness may allow for a safer internationalization experience. One where the compiler supports the effort.
 
@@ -22,7 +22,7 @@ interface Translatable {
 
 Nothing fancy yet: a Translatable has a function to return a String for each supported language.
 
-Now two features of Kotlin come into to play: 
+Now two features of Kotlin comes into to play: 
 
 1. built-in language support for singletons
 2. the possibility of declaring multiple classes or objects in a single file. 
