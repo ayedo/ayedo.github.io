@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Switching From Apple to Lenovo"
-date:   2020-25-12 13:40:00
+date:   2020-12-25 13:40:00
 categories: hardware
 ---
 
